@@ -26,6 +26,7 @@ const app = express();
 
 // bring in models
 let Book = require('./models/book')
+let BingoSquare = require('./models/BingoSquare')
 
 // load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -86,13 +87,13 @@ app.get('*', function(req, res, next) {
 // GET home
 app.get('/', function(req, res) {
 
-  Book.find({}, function(err, books) {
+  BingoSquare.find({}, function(err, bingoSquares) {
     if(err) {
       console.log(err);
     } else {
       res.render('index', {
         title:'Welcome',
-        books: books
+        bingoSquares: bingoSquares
       });
     }
   });
