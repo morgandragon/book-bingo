@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 #{title} of doom
+  
+  form(method='POST', action='/books/add')
+    #form-group
+      label Title: 
+      input.form-control(name='title', type='text')
+    #form-group
+      label Author: 
+      input.form-control(name='author', type='text')
+    br
+    input.btn.btn-primary(type="submit", value="submit")

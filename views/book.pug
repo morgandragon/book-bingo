@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= book.title
+  h3 Written by #{book.author}
+  h5 Added by #{username}
+  p= book.description
+  hr
+  if user
+    if user.id == book.user
+      a.btn.btn-default(href='/books/edit/' + book._id) Edit
+      a.btn.btn-danger.delete-book(href='#', data-id=book._id) Delete
