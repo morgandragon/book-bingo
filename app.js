@@ -102,8 +102,10 @@ app.get('/', function(req, res) {
 // route files
 let books = require('./routes/books');
 let users = require('./routes/users');
+let bingosquares = require('./routes/bingosquares');
 app.use('/books', books);
 app.use('/users', users);
+app.use('/bingosquares', bingosquares);
 
 // start server
 app.listen(3000, function() {

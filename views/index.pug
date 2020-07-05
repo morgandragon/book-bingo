@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 #{title} of doom
+  h1 #{title}
 
   ul.list-group
     each bingoSquare, i in bingoSquares
       li.list-group-item
-        a(href='/books/' + bingoSquare._id)= bingoSquare.name
+        a(href='/bingosquares/' + bingoSquare._id)= bingoSquare.name
