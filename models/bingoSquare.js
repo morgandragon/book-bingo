@@ -9,6 +9,14 @@ let bingoSquareSchema = mongoose.Schema( {
   description:{
     type: String,
     required: false
+  },
+  hardmode: {
+    type: String,
+    required: false
+  },
+  card: {
+    type: String,
+    required: true
   }
 });
 

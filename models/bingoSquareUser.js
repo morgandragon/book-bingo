@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 
 // bingo square user schema
 let bingoSquareUserSchema = mongoose.Schema( {
-  bingoSquare:{
+  bingosquare:{
     type: String,
     required: true
   },
@@ -10,9 +10,13 @@ let bingoSquareUserSchema = mongoose.Schema( {
     type: String,
     required: true
   },
-  selectedBook:{
+  selectedbook:{
     type: String,
-    required: true
+    required: false
+  },
+  potentialbooks: {
+    type: [String],
+    required: false
   }
 });
 
