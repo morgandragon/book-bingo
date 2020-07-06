@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const common = require('./routescommon');
 
 // bring in models
 let Book = require('../models/book');
 let User = require('../models/user');
 
 // GET add book
-router.get('/add', ensureAuthenticated, function(req, res) {
+router.get('/add', common.ensureAuthenticated, function(req, res) {
   res.render('add_book', {
     title:'Add Book'
   });
 });
 
 // POST add book
-router.post('/add', ensureAuthenticated, function(req, res) {
+router.post('/add', common.ensureAuthenticated, function(req, res) {
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('author', 'Author is required').notEmpty();
 
@@ -44,7 +45,7 @@ router.post('/add', ensureAuthenticated, function(req, res) {
 });
 
 // GET single book
-router.get('/:id', ensureAuthenticated, function(req, res) {
+router.get('/:id', common.ensureAuthenticated, function(req, res) {
   Book.findById(req.params.id, function(err, book) {
     User.findById(book.user, function(err, user) {
       res.render('book', {
@@ -56,7 +57,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
 });
 
 // GET edit form
-router.get('/edit/:id', ensureAuthenticated, function(req, res) {
+router.get('/edit/:id', common.ensureAuthenticated, function(req, res) {
   Book.findById(req.params.id, function(err, book) {
     if (book.user != req.user._id) {
       req.flash('danger', 'Not Authorized');
@@ -71,7 +72,7 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
 });
 
 // POST edit book
-router.post('/edit/:id', ensureAuthenticated, function(req, res) {
+router.post('/edit/:id', common.ensureAuthenticated, function(req, res) {
 
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('author', 'Author is required').notEmpty();
@@ -106,7 +107,7 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
 });
 
 // DELETE book
-router.delete('/:id', ensureAuthenticated, function(req, res) {
+router.delete('/:id', common.ensureAuthenticated, function(req, res) {
   if (!req.user._id) {
     res.status(500).send();
   }
@@ -128,13 +129,13 @@ router.delete('/:id', ensureAuthenticated, function(req, res) {
 });
 
 // Access control
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    req.flash('danger', 'Please login');
-    res.redirect('/users/login');
-  }
-}
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   } else {
+//     req.flash('danger', 'Please login');
+//     res.redirect('/users/login');
+//   }
+// }
 
 module.exports = router;
