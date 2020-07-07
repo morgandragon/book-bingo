@@ -10,5 +10,12 @@ block content
     #form-group
       label Author: 
       input.form-control(name='author', type='text')
+    #form-group
+      label Applicable Bingo Squares (select all that apply):
+      br
+      select.bingosquareselect(name='bingosquareselect', multiple='')
+        each bingoSquare, i in bingoSquares
+          option(value=bingoSquare.id) #{bingoSquare.name} 
+        br
     br
     input.btn.btn-primary(type="submit", value="submit")

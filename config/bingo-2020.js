@@ -23,8 +23,8 @@ description: "Raising the dead, woot! Self-explanatory.",
 hardmode: "Necromancer is the protagonist.",
 card: '2020'});
 
-db.bingosquares.insert({name:"A novel featuring Asexual and/or Aromantic character(s). It should be explicitly stated (either by the character themselves, another character, or the author) that a character isn't interested in romance or sex.",
-description: "This setting must used be for a good portion of the book.",
+db.bingosquares.insert({name:"Ace / Aro Spec Fic",
+description: "A novel featuring Asexual and/or Aromantic character(s). It should be explicitly stated (either by the character themselves, another character, or the author) that a character isn't interested in romance or sex.",
 hardmode: "Ace / Aro protagonist.",
 card: '2020'});
 

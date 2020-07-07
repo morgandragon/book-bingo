@@ -5,11 +5,19 @@ const common = require('./routescommon');
 // bring in models
 let Book = require('../models/book');
 let User = require('../models/user');
+let BingoSquare = require('../models/BingoSquare');
 
 // GET add book
 router.get('/add', common.ensureAuthenticated, function(req, res) {
-  res.render('add_book', {
-    title:'Add Book'
+  BingoSquare.find({}, function(err, bingoSquares){
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('add_book', {
+        title:'Add Book',
+        bingoSquares: bingoSquares
+      });
+    }
   });
 });
 
@@ -31,6 +39,9 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
     book.title = req.body.title;
     book.user = req.user._id;
     book.author = req.body.author;
+    book.bingoSquares = req.body.bingosquareselect;
+
+    console.log(req.body);
 
     book.save(function(err) {
       if(err) {
