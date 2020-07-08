@@ -6,6 +6,7 @@ const common = require('./routescommon');
 let Book = require('../models/book');
 let User = require('../models/user');
 let BingoSquare = require('../models/BingoSquare');
+let BingoSquareUser = require('../models/BingoSquareUser');
 
 // GET add book
 router.get('/add', common.ensureAuthenticated, function(req, res) {
@@ -41,8 +42,6 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
     book.author = req.body.author;
     book.bingoSquares = req.body.bingosquareselect;
 
-    console.log(req.body);
-
     book.save(function(err) {
       if(err) {
         console.log(err);
@@ -52,6 +51,29 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
         res.redirect('/');
       }
     });
+
+    console.log(book.bingoSquares);
+    book.bingoSquares.forEach(function(item, index) {
+      let query = {bingosquare:item, user:book.user};
+      BingoSquareUser.findOne(query, function(err, bingoSquareUser) {
+        if (bingoSquareUser == null) {
+          bingoSquareUser = new BingoSquareUser();
+          bingoSquareUser.bingosquare = item;
+          bingoSquareUser.user = book.user;
+        }
+
+        bingoSquareUser.potentialbooks.push(book._id);
+
+        bingoSquareUser.save(function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+
+        console.log(bingoSquareUser);
+      });
+    });
+
   }
 });
 

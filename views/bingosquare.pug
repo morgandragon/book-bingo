@@ -11,4 +11,4 @@ block content
   ul.list-group
     each book, i in bingosquareuser.potentialbooks
       li.list-group-item
-        a(href='/bingosquares/' + bingoSquare._id)= book.title
+        a(href='/books/' + book)= book
