@@ -151,6 +151,7 @@ router.post('/edit/:id', common.ensureAuthenticated, function(req, res) {
     book.title = req.body.title;
     book.author = req.body.author;
     book.description = req.body.description;
+    book.bingoSquares = req.body.bingosquareselect;
 
     let query = {_id:req.params.id}
 
