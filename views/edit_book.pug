@@ -11,7 +11,15 @@ block content
       label Author: 
       input.form-control(name='author', type='text', value=book.author)
     #form-group
-      label Description:  
-      textarea.form-control(name='description')= book.description
+      label Applicable Bingo Squares (select all that apply):
+      br
+      select.bingosquareselect(name='bingosquareselect', multiple='')
+        each bingoSquare, i in bingoSquares
+          if book.bingoSquares.includes(bingoSquare._id)
+            option(value=bingoSquare.id, selected=true) #{bingoSquare.name}
+          else
+            option(value=bingoSquare.id, selected=false) #{bingoSquare.name}
+        br
     br
+    
     input.btn.btn-primary(type="submit", value="submit")

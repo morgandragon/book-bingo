@@ -15,5 +15,7 @@ $(document).ready(function() {
     });
   });
 
-  $('.bingosquareselect').select2();
+  $('.bingosquareselect').select2({
+    scroleAfterSelect: "true"
+  });
 });

@@ -116,9 +116,16 @@ router.get('/edit/:id', common.ensureAuthenticated, function(req, res) {
       req.flash('danger', 'Not Authorized');
       res.redirect('/');
     } else {
-      res.render('edit_book', {
-        title: 'Edit Book',
-        book:book
+      BingoSquare.find({}, function(err, bingoSquares) {
+        if(err) {
+          console.log(err);
+        } else {
+          res.render('edit_book', {
+            title: 'Edit Book',
+            book:book,
+            bingoSquares: bingoSquares
+          });
+        }
       });
     }
   });
