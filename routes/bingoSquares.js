@@ -4,6 +4,7 @@ const common = require('./routescommon');
 
 let BingoSquare = require('../models/BingoSquare');
 let BingoSquareUser = require('../models/BingoSquareUser');
+let Book = require('../models/book');
 
 // GET BingoSquare
 router.get('/:id', common.ensureAuthenticated, function(req, res) {
@@ -26,11 +27,15 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
 
         bingoSquareUser = squareUser;
       }
-      res.render('bingosquare', {
-        bingosquare:bingosquare,
-        bingosquareuser:bingoSquareUser
-      });
 
+      Book.find({'_id': { $in: bingoSquareUser.potentialbooks }}, function (err, books) {
+        console.log(books);
+        res.render('bingosquare', {
+          bingosquare:bingosquare,
+          bingosquareuser:bingoSquareUser,
+          books: books
+        });
+      });
     });
   });
 });

@@ -9,6 +9,6 @@ block content
   
   h3 Potential Books for This Square
   ul.list-group
-    each book, i in bingosquareuser.potentialbooks
+    each book, i in books
       li.list-group-item
-        a(href='/books/' + book)= book
+        a(href='/#')= book.title
