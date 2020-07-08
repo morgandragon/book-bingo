@@ -11,4 +11,6 @@ block content
   ul.list-group
     each book, i in books
       li.list-group-item
-        a(href='/books/'+ book._id)= book.title
+        a(href='/books/'+ book._id)= book.title 
+        -if (book.id != bingosquareuser.selectedbook)
+          a.btn.btn-dark(href='/bingosquares/select/' + bingosquareuser._id + '/' + book._id) Select

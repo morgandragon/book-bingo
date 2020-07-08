@@ -40,4 +40,29 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
   });
 });
 
+// POST select book
+router.get('/select/:bingosquareuserid/:bookid', common.ensureAuthenticated, function(req, res) {
+  console.log(req.params);
+  BingoSquareUser.findById(req.params.bingosquareuserid, function (err, bingoSquareUser) {
+    if(err) {
+      console.log(err);
+    } else {
+      bingoSquareUser.selectedbook = req.params.bookid;
+
+      let query = {_id:bingoSquareUser._id}
+
+      BingoSquareUser.updateOne(query, bingoSquareUser, function(err) {
+        if(err) {
+          console.log(err);
+          return;
+        } else {
+          req.flash('success', 'Book Selected')
+          res.redirect('/');
+        }
+      });
+    }
+  });
+});
+
+
 module.exports = router;
