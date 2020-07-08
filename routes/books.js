@@ -77,6 +77,20 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
   }
 });
 
+// GET list of books
+router.get('/list', common.ensureAuthenticated, function(req, res) {
+  let query = {user:req.user._id};
+  Book.find(query, function(err, books) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('booklist', {
+        books:books
+      });
+    }
+  });
+});
+
 // GET single book
 router.get('/:id', common.ensureAuthenticated, function(req, res) {
   Book.findById(req.params.id, function(err, book) {
