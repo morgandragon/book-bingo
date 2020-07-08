@@ -95,10 +95,16 @@ router.get('/list', common.ensureAuthenticated, function(req, res) {
 router.get('/:id', common.ensureAuthenticated, function(req, res) {
   Book.findById(req.params.id, function(err, book) {
     User.findById(book.user, function(err, user) {
-      res.render('book', {
-        book:book,
-        username:user.username
-      });
+      if(err) {
+        console.log(err);
+      } else {
+        BingoSquare.find({'_id': { $in: book.bingoSquares }}, function (err, bingoSquares) {
+          res.render('book', {
+            book:book,
+            bingoSquares:bingoSquares,
+          });
+        });
+      }
     });
   });
 });
