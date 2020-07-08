@@ -3,10 +3,13 @@ extends layout
 block content
   h1= book.title
   h3 Written by #{book.author}
+  
+  h4 Applicable Bingo Squares
   ul.list-group
     each bingoSquare, i in bingoSquares
       li.list-group-item
         a(href='/bingosquares/' + bingoSquare._id)= bingoSquare.name
+        
   if user
     if user.id == book.user
       a.btn.btn-default(href='/books/edit/' + book._id) Edit
