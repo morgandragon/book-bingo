@@ -52,7 +52,6 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
       }
     });
 
-    console.log(book.bingoSquares);
     book.bingoSquares.forEach(function(item, index) {
       let query = {bingosquare:item, user:book.user};
       BingoSquareUser.findOne(query, function(err, bingoSquareUser) {
@@ -70,7 +69,6 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
           }
         });
 
-        console.log(bingoSquareUser);
       });
     });
 
