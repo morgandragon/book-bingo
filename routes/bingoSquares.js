@@ -29,7 +29,6 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
       }
 
       Book.find({'_id': { $in: bingoSquareUser.potentialbooks }}, function (err, books) {
-        console.log(books);
         res.render('bingosquare', {
           bingosquare:bingosquare,
           bingosquareuser:bingoSquareUser,
@@ -57,7 +56,7 @@ router.get('/select/:bingosquareuserid/:bookid', common.ensureAuthenticated, fun
           return;
         } else {
           req.flash('success', 'Book Selected')
-          res.redirect('/');
+          res.redirect(req.get('referer'));
         }
       });
     }

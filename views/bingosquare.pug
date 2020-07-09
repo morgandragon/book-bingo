@@ -14,3 +14,5 @@ block content
         a(href='/books/'+ book._id)= book.title 
         -if (book.id != bingosquareuser.selectedbook)
           a.btn.btn-dark(href='/bingosquares/select/' + bingosquareuser._id + '/' + book._id) Select
+        -else
+          p This book is selected!

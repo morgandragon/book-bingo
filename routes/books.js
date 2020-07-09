@@ -189,14 +189,4 @@ router.delete('/:id', common.ensureAuthenticated, function(req, res) {
   });
 });
 
-// Access control
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   } else {
-//     req.flash('danger', 'Please login');
-//     res.redirect('/users/login');
-//   }
-// }
-
 module.exports = router;
