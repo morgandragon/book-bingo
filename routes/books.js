@@ -60,9 +60,6 @@ router.post('/add', common.ensureAuthenticated, function(req, res) {
           bingoSquareUser.bingosquare = item;
           bingoSquareUser.user = book.user;
         }
-
-        bingoSquareUser.potentialbooks.push(book._id);
-
         bingoSquareUser.save(function(err) {
           if (err) {
             console.log(err);

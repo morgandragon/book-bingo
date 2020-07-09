@@ -28,7 +28,9 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
         bingoSquareUser = squareUser;
       }
 
-      Book.find({'_id': { $in: bingoSquareUser.potentialbooks }}, function (err, books) {
+      console.log(bingoSquareUser.bingoSquare);
+      Book.find({bingoSquare:bingoSquareUser.bingoSquare}, function (err, books) {
+        console.log("books! " + books);
         res.render('bingosquare', {
           bingosquare:bingosquare,
           bingosquareuser:bingoSquareUser,
@@ -40,6 +42,7 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
 });
 
 // POST select book
+// needs to become a post
 router.get('/select/:bingosquareuserid/:bookid', common.ensureAuthenticated, function(req, res) {
   BingoSquareUser.findById(req.params.bingosquareuserid, function (err, bingoSquareUser) {
     if(err) {
@@ -50,7 +53,6 @@ router.get('/select/:bingosquareuserid/:bookid', common.ensureAuthenticated, fun
       let usedQuery = {user:req.user._id, selectedbook:req.params.bookid}
       BingoSquareUser.find(usedQuery, function(err, bingoSquareUsers) {
         if(bingoSquareUsers.length > 0) {
-          console.log(bingoSquareUsers);
           req.flash('danger', 'Sorry, this book is selected for another bingo card.');
           res.redirect(req.get('referer'));
         } else {

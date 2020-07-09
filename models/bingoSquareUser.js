@@ -13,10 +13,6 @@ let bingoSquareUserSchema = mongoose.Schema( {
   selectedbook:{
     type: String,
     required: false
-  },
-  potentialbooks: {
-    type: [String],
-    required: false
   }
 });
 
