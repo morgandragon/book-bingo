@@ -49,25 +49,26 @@ router.get('/select/:bingosquareuserid/:bookid', common.ensureAuthenticated, fun
       // ensure book isn't selected elsewhere
       let usedQuery = {user:req.user._id, selectedbook:req.params.bookid}
       BingoSquareUser.find(usedQuery, function(err, bingoSquareUsers) {
-        if(bingoSquareUsers) {
-          req.flash('danger', 'This book is in use elsewhere');
+        if(bingoSquareUsers.length > 0) {
+          console.log(bingoSquareUsers);
+          req.flash('danger', 'Sorry, this book is selected for another bingo card.');
           res.redirect(req.get('referer'));
+        } else {
+          bingoSquareUser.selectedbook = req.params.bookid;
+
+          let query = {_id:bingoSquareUser._id}
+
+          BingoSquareUser.updateOne(query, bingoSquareUser, function(err) {
+            if(err) {
+              console.log(err);
+              return;
+            } else {
+              req.flash('success', 'Book Selected')
+              res.redirect(req.get('referer'));
+            }
+          });
         }
       });
-
-      bingoSquareUser.selectedbook = req.params.bookid;
-
-      // let query = {_id:bingoSquareUser._id}
-      //
-      // BingoSquareUser.updateOne(query, bingoSquareUser, function(err) {
-      //   if(err) {
-      //     console.log(err);
-      //     return;
-      //   } else {
-      //     req.flash('success', 'Book Selected')
-      //     res.redirect(req.get('referer'));
-      //   }
-      // });
     }
   });
 });
