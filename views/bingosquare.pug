@@ -5,7 +5,9 @@ block content
   p= bingosquare.description
   p #[strong Hard Mode:] #{bingosquare.hardmode}
   - if (bingosquareuser.selectedbook)
-    p #[strong Selected Book:] #{bingosquareuser.selectedbook}
+    p #[strong Selected Book:] #{selectedTitle}
+  - else 
+    p Nothing has been selected for this square yet
   
   h3 Select Book for This Square
   form(method='POST', action='/bingosquares/select/' + bingosquareuser._id)
@@ -14,7 +16,7 @@ block content
       -if (book.id != bingosquareuser.selectedbook)
         input#book(type='radio', name='bookid', value=book._id)
       -else 
-        a.btn.btn-dark(href='#') Selected -- Unselect
+        a.btn.btn-dark.mr-auto(href='#') Unselect
       br
     
     input.btn.btn-primary(type="submit", value="submit")

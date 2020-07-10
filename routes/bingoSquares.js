@@ -28,16 +28,27 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
         bingoSquareUser = squareUser;
       }
 
-      console.log(bingoSquareUser.bingoSquare);
+      console.log(bingoSquareUser.bingosquare);
 
-      Book.find({bingoSquares:bingoSquareUser.bingoSquare}, function (err, books) {
+      Book.find({bingoSquares:bingoSquareUser.bingosquare}, function (err, books) {
+
+        // find a way to do this neater?
         let selectedTitle = '';
+        for (i in books) {
+          let book = books[i];
+          if (book._id == bingoSquareUser.selectedbook) {
+            console.log(book.title);
+            selectedTitle = book.title;
+            break;
+          }
+        }
 
         console.log("selected book: " + bingoSquareUser.selectedbook);
         res.render('bingosquare', {
-          bingosquare:bingosquare,
-          bingosquareuser:bingoSquareUser,
-          books: books
+          bingosquare: bingosquare,
+          bingosquareuser: bingoSquareUser,
+          books: books,
+          selectedTitle: selectedTitle
         });
       });
     });
