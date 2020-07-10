@@ -7,12 +7,14 @@ block content
   - if (bingosquareuser.selectedbook)
     p #[strong Selected Book:] #{bingosquareuser.selectedbook}
   
-  h3 Potential Books for This Square
-  ul.list-group
+  h3 Select Book for This Square
+  form(method='POST', action='/bingosquares/select/' + bingosquareuser._id)
     each book, i in books
-      li.list-group-item
-        a(href='/books/'+ book._id)= book.title 
-        -if (book.id != bingosquareuser.selectedbook)
-          a.btn.btn-dark(href='/bingosquares/select/' + bingosquareuser._id + '/' + book._id) Select
-        -else
-          p This book is selected!
+      label #{book.title}
+      -if (book.id != bingosquareuser.selectedbook)
+        input#book(type='radio', name='bookid', value=book._id)
+      -else 
+        a.btn.btn-dark(href='#') Selected -- Unselect
+      br
+    
+    input.btn.btn-primary(type="submit", value="submit")
