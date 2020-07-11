@@ -55,8 +55,25 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
   });
 });
 
+// POST unselect book
+router.post('/unselect/:bingosquareuserid', common.ensureAuthenticated, function(req, res) {
+  BingoSquareUser.findById(req.params.bingosquareuserid, function (err, bingoSquareUser) {
+    bingoSquareUser.selectedbook = undefined;
+
+    console.log(bingoSquareUser);
+
+    bingoSquareUser.save(function(err) {
+      if(err) {
+        console.log(err);
+        return;
+      } else {
+        res.send('Success');
+      }
+    });
+  });
+});
+
 // POST select book
-// needs to become a post
 router.post('/select/:bingosquareuserid', common.ensureAuthenticated, function(req, res) {
   BingoSquareUser.findById(req.params.bingosquareuserid, function (err, bingoSquareUser) {
     if(err) {

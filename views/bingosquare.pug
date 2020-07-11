@@ -16,7 +16,7 @@ block content
       -if (book.id != bingosquareuser.selectedbook)
         input#book(type='radio', name='bookid', value=book._id)
       -else 
-        a.btn.btn-dark.mr-auto(href='#') Unselect
+        a.btn.btn-dark.unselect-book(href='#', data-id=bingosquareuser._id) Unselect
       br
     
     input.btn.btn-primary(type="submit", value="submit")
