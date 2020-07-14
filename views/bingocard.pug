@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  ul.list-group
+    each bingoSquare, i in bingoSquareData
+      if bingoSquare.selectedBook == true
+        li.list-group-item.list-group-selected
+          a(href='/bingosquares/' + bingoSquare.bingoSquare._id)= bingoSquare.bingoSquare.name
+      else
+        li.list-group-item
+          a(href='/bingosquares/' + bingoSquare.bingoSquare._id)= bingoSquare.bingoSquare.name

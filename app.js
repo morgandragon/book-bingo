@@ -28,6 +28,7 @@ const app = express();
 // bring in models
 let Book = require('./models/book')
 let BingoSquare = require('./models/BingoSquare')
+let BingoSquareUser = require('./models/BingoSquareUser')
 
 // load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -92,10 +93,45 @@ app.get('/', function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      res.render('index', {
-        title:'Welcome',
-        bingoSquares: bingoSquares
-      });
+      if(req.isAuthenticated()) {
+        let user = req.user;
+
+        BingoSquareUser.find({user:user._id}, function(err, bingoSquareUsers) {
+
+          if (err) {
+            console.log(err)
+          } else {
+            let bingoSquareData = [];
+            for (i in bingoSquares) {
+              let bingoSquare = bingoSquares[i];
+              let userBingoSquare = bingoSquareUsers.filter(bingoSquareUser => bingoSquareUser.bingosquare == bingoSquare._id);
+              if (userBingoSquare[0] != undefined && userBingoSquare[0].selectedbook != undefined) {
+                console.log("there is a selected book");
+                bingoSquareData.push({"bingoSquare": bingoSquare, "selectedBook": true})
+              } else {
+                bingoSquareData.push({"bingoSquare": bingoSquare, "selectedBook": false})
+              }
+              // TODO if there is selected book, add that to the bingo square data
+              // otherwise add the plain bungo square with false selected book
+              // possibly create new pug file for this
+              // figure out how to separate out duplicate pug code
+            }
+
+            res.render('bingocard', {
+              title:'Welcome ' + user.username,
+              bingoSquareData: bingoSquareData,
+            });
+            return;
+          }
+
+        });
+      } else {
+        res.render('index', {
+          title:'Welcome Guest',
+          bingoSquares: bingoSquares,
+          bingoSquareUsers: []
+        });
+      }
     }
   });
 });
