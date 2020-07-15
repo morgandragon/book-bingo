@@ -30,7 +30,7 @@ router.get('/:id', common.ensureAuthenticated, function(req, res) {
 
       console.log(bingoSquareUser.bingosquare);
 
-      Book.find({bingoSquares:bingoSquareUser.bingosquare}, function (err, books) {
+      Book.find({bingoSquares:bingoSquareUser.bingosquare, user:user._id}, function (err, books) {
 
         // find a way to do this neater?
         let selectedTitle = '';
