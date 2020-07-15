@@ -6,7 +6,7 @@ block content
   ul.list-group
     each bingoSquare, i in bingoSquareData
       if bingoSquare.selectedBook == true
-        li.list-group-item.list-group-selected
+        li.list-group-item.list-group-item-success
           a(href='/bingosquares/' + bingoSquare.bingoSquare._id)= bingoSquare.bingoSquare.name
       else
         li.list-group-item
